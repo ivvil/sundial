@@ -1,6 +1,14 @@
 <script lang="ts">
   import Greet from './lib/Greet.svelte'
   import FilePlayer from './lib/FilePlayer.svelte';
+  import type { Song } from "../types/song.type";
+  import type { Artist } from './types/artist.type';
+  import type { Album } from './types/album.type';
+    import Player from './lib/Player.svelte';
+
+  let album: Album = { cover: "/svelte.svg", name: "Album", artist: { name: "Artist", albums: [] }, songs: [] };
+  let artist: Artist = { name: "Artist", albums: [ album ] };
+  let song: Song = { title: "Song", artists: [ artist ], album: album};
 </script>
 
 <main class="container">
@@ -27,7 +35,7 @@
   </div>
 
   <div>
-	<FilePlayer />
+	<Player {song} />
   </div>
 
 </main>
