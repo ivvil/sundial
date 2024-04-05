@@ -1,5 +1,6 @@
 <script lang="ts">
   import Greet from './lib/Greet.svelte'
+  import FilePlayer from './lib/FilePlayer.svelte';
 </script>
 
 <main class="container">
@@ -25,6 +26,9 @@
     <Greet />
   </div>
 
+  <div>
+	<FilePlayer />
+  </div>
 
 </main>
 

@@ -1,9 +1,16 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::fs::File;
+use std::io::BufReader;
+use rodio::{Decoder, OutputStream, source::Source};
+use std::path::PathBuf;
+use tauri::{AppHandle, Manager, State};
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
+	print!("{}", name);
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 // remember to call `.manage(MyState::default())`
@@ -13,9 +20,43 @@ fn getPlaying() -> Result<(), String> {
   Ok(())
 }
 
+#[tauri::command]
+fn play(path: &str) {
+	print!("{}", path);
+	
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+	let file = BufReader::new(File::open(path).unwrap());
+
+	let source = Decoder::new(file).unwrap();
+
+	stream_handle.play_raw(source.convert_samples());
+
+	std::thread::sleep(std::time::Duration::from_secs(10))
+}
+
+// #[tauri::command]
+// fn open_file_dialog(app: AppHandle) -> Option<PathBuf> {
+//     let filter = tauri_dialog::open_file_dialog().filter("Audio Files", "*.mp3").unwrap();
+//     let file = app
+//         .invoke_handler(move |_app| {
+//             Ok(filter.load())
+//         })
+//         .expect("Failed to invoke file dialog");
+//     file
+// }
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, play])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+
+
+
+
+
+
+
+

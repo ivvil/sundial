@@ -1,8 +1,8 @@
 [package]
 name = "sundial"
 version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "Themeable and modern music player"
+authors = ["Iván Villagrasa <ivvil412@gmail.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,9 +11,10 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = ["shell-open"] }
+tauri = { version = "1", features = [ "dialog-open", "path-all", "fs-all", "shell-open"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+rodio = "0.17.3"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
