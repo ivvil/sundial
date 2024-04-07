@@ -5,4 +5,5 @@ export type Song = {
   title: string;
   artists: Artist[];
   album: Album;
+  length: number;
 }
