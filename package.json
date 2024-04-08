@@ -11,6 +11,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@devcapsule/deficon": "^2.0.2",
     "@tauri-apps/api": "^1"
   },
   "devDependencies": {

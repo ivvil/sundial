@@ -15,6 +15,6 @@
     "checkJs": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!artist.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!album.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!song.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!playlist.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!player.types.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!player.type.ts~"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!artist.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!album.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!song.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!playlist.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!player.types.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!types!player.type.ts~", "../../.emacs.d/cache/backups/!home!ivvil!Proyectos!sundial!src!stores.ts~"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
