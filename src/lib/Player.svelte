@@ -78,7 +78,6 @@
   }
 
   .Info {
-	margin-left: 2%;
     grid-area: Info;
 	justify-self: start;
 	display: grid; 
