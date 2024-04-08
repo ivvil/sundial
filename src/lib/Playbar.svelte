@@ -8,7 +8,7 @@
 	pos = (length * (clientX - left)) / (right - left);
   }
 
-  function formatSeconds(sec: number) {
+  function formatSeconds(sec: number) { // TODO: Format to HH:MM:SS after 60 minutes
 	return new Date(sec * 1000)
 	  .toISOString()
 	  .slice(14, 19);
