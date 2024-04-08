@@ -24,11 +24,10 @@
 	
 	<div class="status">
 
-	  {formatSeconds($player.position)}
+	  <Playbar
+		pos={$player.position}
+		length={$player.currentSong.length}></Playbar>
 	  
-	  <progress class="progress w-56" value={$player.position} max={length}></progress>
-
-	  {formatSeconds($player.currentSong.length)}
 	</div>
   </div>
 
@@ -56,15 +55,14 @@
 <script lang="ts">
   import { player } from "../stores";
   import Toggle from './Toggle.svelte'
+  import Playbar from './Playbar.svelte'
   import type { Song } from "../types/song.type";
 
-  export let song: Song;
+  $player.currentSong.length = 3600;
 
-  function formatSeconds(sec: number) {
-	return new Date(sec * 1000)
-	  .toISOString()
-	  .slice(14, 19);
-  }
+  console.log($player)
+
+  export let song: Song;
   // export let player;
 </script>
 
