@@ -5,10 +5,16 @@
   import type { Album } from './types/album.type';
   import Player from './lib/Player.svelte';
   import PlayablePreview from './lib/PlayablePreview.svelte';
+  import { invoke } from '@tauri-apps/api';
+
+
+  invoke("get_library").then((message) => console.log(message))
 
   let album: Album = { cover: "/svelte.svg", name: "Album", artist: { name: "Artist", albums: [] }, songs: [] };
   let artist: Artist = { name: "Artist", albums: [ album ] };
   let song: Song = { title: "Song", artists: [ artist ], album: album, length: 1500};
+
+  console.log(invoke("get_library"))
 </script>
 
 <main class="container">
