@@ -60,7 +60,7 @@
 
   $player.currentSong.length = 3600;
 
-  console.log($player)
+  // console.log($player)
 
   export let song: Song;
   // export let player;

@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod get_data;
+mod awesome;
 
 use std::fs::File;
 use std::io::BufReader;
@@ -59,10 +59,11 @@ fn play(path: &str) {
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet, play])
-		.plugin(get_data::init())
+		.plugin(awesome::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
 
 
 
