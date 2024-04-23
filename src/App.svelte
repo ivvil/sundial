@@ -11,7 +11,7 @@
   let artist: Artist = { name: "Artist", albums: [ album ] };
   let song: Song = { title: "Song", artists: [ artist ], album: album, length: 1500};
 
-  console.log(invoke("plugin:awesome|get_library"))
+  console.log(invoke("plugin:library|get_files"))
 </script>
 
 <main class="container">
