@@ -28,7 +28,7 @@ struct Album {
 }
 
 #[tauri::command]
-fn get_files() -> HashMap<String, Album> {
+fn get_files() -> Vec<Album> {
 	let mut albums: HashMap<String, Album> = HashMap::new();
 		
 	if let Some(music_dir) = UserDirs::new().unwrap().audio_dir() {
@@ -53,7 +53,7 @@ fn get_files() -> HashMap<String, Album> {
 			};
 		}
 	};	
-	albums
+	albums.into_values().collect()
 }
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
