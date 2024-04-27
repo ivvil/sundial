@@ -11,6 +11,7 @@ use walkdir::WalkDir;
 use self::metadata::{get_album_name, get_metadata};
 
 pub mod metadata;
+pub mod uri;
 
 #[derive(Serialize)]
 struct Song {
@@ -18,6 +19,7 @@ struct Song {
 	artists: Option<Vec<String>>,
 	year: Option<i32>,
 	duration: f64,
+	cover: String,
 }
 
 #[derive(Serialize)]
