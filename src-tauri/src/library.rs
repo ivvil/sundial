@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use base64::{engine::general_purpose::URL_SAFE, Engine};
 use directories::UserDirs;
 use serde::Serialize;
 use tauri::{
@@ -8,7 +9,7 @@ use tauri::{
 };
 use walkdir::WalkDir;
 
-use self::metadata::{get_album_name, get_metadata};
+use self::metadata::{get_album_name, get_cover, get_metadata};
 
 pub mod metadata;
 pub mod uri;
@@ -19,14 +20,14 @@ struct Song {
 	artists: Option<Vec<String>>,
 	year: Option<i32>,
 	duration: f64,
-	cover: String,
 }
 
 #[derive(Serialize)]
 struct Album {
 	title: String,
 	artists: Option<Vec<String>>,
-	songs: Vec<Song>
+	songs: Vec<Song>,
+	cover: String
 }
 
 #[tauri::command]
@@ -38,12 +39,15 @@ fn get_files() -> Vec<Album> {
 			if let Ok(file) = file {
 				if file.file_type().is_file() {
 					if let Some(album_name) = get_album_name(file.path().to_path_buf()) {
+
+						// KLUDGE Only searches for covers in the first song it finds						
 						let album = albums
 							.entry(album_name.clone())
 							.or_insert_with(|| Album {
 								title: album_name,
 								artists: None,
 								songs: Vec::new(),
+								cover: get_cover(file.clone().into_path()).unwrap_or("".to_string())
 							});
 
 						if let Some(song) = get_metadata(file.into_path()) {
@@ -58,8 +62,13 @@ fn get_files() -> Vec<Album> {
 	albums.into_values().collect()
 }
 
+#[tauri::command]
+fn base64_test(input: String) -> String {
+    URL_SAFE.encode(input)
+}
+
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("library")
-    .invoke_handler(tauri::generate_handler![get_files])
+    .invoke_handler(tauri::generate_handler![get_files, base64_test])
     .build()
 }

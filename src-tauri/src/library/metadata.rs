@@ -1,7 +1,17 @@
 use std::path::PathBuf;
-use audiotags::Tag;
+use audiotags::{Error, Picture, Tag};
 
 use super::{uri::img_base64, Song};
+
+pub fn get_cover(file: PathBuf) -> Option<String> {
+    match Tag::new().read_from_path(file) {
+        Ok(tag) => match tag.album_cover() {
+            Some(cover) => Some(img_base64(&cover)),
+            None => None,
+        },
+        Err(_) => None,
+    }
+}
 
 pub fn get_album_name(file: PathBuf) -> Option<String> {
     if let Ok(tag) = Tag::new().read_from_path(file) {
@@ -23,13 +33,14 @@ pub fn get_metadata(file: PathBuf) -> Option<Song> {
 			None => String::new(),
 		};
 
+		// let cover = String::new();
+
 
 		let song = Song {
 			title: tag.title().unwrap_or_else(|| "").to_string(),
 			artists,
 			year: tag.year(),
 			duration: tag.duration().unwrap_or(0.0),
-			cover,
 		};
 		Some(song)
 	} else {

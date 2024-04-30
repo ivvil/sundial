@@ -12,6 +12,7 @@
   let song: Song = { title: "Song", artists: [ artist ], album: album, length: 1500};
 
   console.log(invoke("plugin:library|get_files"))
+  console.log(invoke("plugin:library|base64_test", { input: "test" }))
 </script>
 
 <main class="container">
