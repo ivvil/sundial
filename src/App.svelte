@@ -11,21 +11,26 @@
   let artist: Artist = { name: "Artist", albums: [ album ] };
   let song: Song = { title: "Song", artists: [ artist ], album: album, length: 1500};
 
-  console.log(invoke("plugin:library|get_files"))
-  console.log(invoke("plugin:library|base64_test", { input: "test" }))
+  let songs = invoke("plugin:library|get_files");
+
 </script>
 
 <main class="container">
 
-  <PlayablePreview
-	src="/svelte.svg"
-	title="Test"
-	author="Yo"></PlayablePreview>
-
+  {#await songs}
+	{:then library}
+	  {#each library as song}
+		<PlayablePreview
+		  src={song.cover}
+		  title={song.title}
+		  author={song.artists}></PlayablePreview>
+		{/each}
+  {/await}
 
   <div class="btm-nav">
 	<Player {song} />
   </div>
+
 
 </main>
 
