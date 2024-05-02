@@ -13,11 +13,14 @@
 
   let songs = invoke("plugin:library|get_files");
 
+  // songs.then((sol) => console.log(sol))
+
 </script>
 
 <main class="container">
 
   {#await songs}
+	<p>Loading data...</p>
 	{:then library}
 	  {#each library as song}
 		<PlayablePreview
