@@ -19,8 +19,9 @@
 
 <main class="container">
 
-  {#await songs}
-	<p>Loading data...</p>
+  <div class="library">
+    {#await songs}
+	  <p>Loading data...</p>
 	{:then library}
 	  {#each library as song}
 		<PlayablePreview
@@ -28,7 +29,8 @@
 		  title={song.title}
 		  author={song.artists}></PlayablePreview>
 		{/each}
-  {/await}
+	  {/await}
+	</div>
 
   <div class="btm-nav">
 	<Player {song} />
@@ -38,12 +40,10 @@
 </main>
 
 <style>
-  .logo.vite:hover {
-    filter: drop-shadow(0 0 2em #747bff);
-  }
-
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00);
+  .library {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
   }
 
 </style>
