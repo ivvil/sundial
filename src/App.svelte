@@ -11,30 +11,39 @@
   let artist: Artist = { name: "Artist", albums: [ album ] };
   let song: Song = { title: "Song", artists: [ artist ], album: album, length: 1500};
 
-  console.log(invoke("plugin:awesome|get_library"))
+  let songs = invoke("plugin:library|get_files");
+
+  // songs.then((sol) => console.log(sol))
+
 </script>
 
 <main class="container">
 
-  <PlayablePreview
-	src="/svelte.svg"
-	title="Test"
-	author="Yo"></PlayablePreview>
-
+  <div class="library">
+    {#await songs}
+	  <p>Loading data...</p>
+	{:then library}
+	  {#each library as song}
+		<PlayablePreview
+		  src={song.cover}
+		  title={song.title}
+		  author={song.artists}></PlayablePreview>
+		{/each}
+	  {/await}
+	</div>
 
   <div class="btm-nav">
 	<Player {song} />
   </div>
 
+
 </main>
 
 <style>
-  .logo.vite:hover {
-    filter: drop-shadow(0 0 2em #747bff);
-  }
-
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00);
+  .library {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
   }
 
 </style>

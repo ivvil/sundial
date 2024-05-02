@@ -1,4 +1,4 @@
-<div class="card card-bordered bg-base-100 shadow-xl w-96">
+<div class="card card-bordered bg-base-100 shadow-xl w-96 rounded-none">
   <figure>
 	<img src={src} alt={alt} title={title}>
   </figure>
@@ -12,6 +12,6 @@
   export let src: string, title: string, author: string;
   let alt: string;
 
-  alt = "Album art for: " + title;
+  alt = "Album art for " + title;
 </script>
 
