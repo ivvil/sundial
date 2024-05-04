@@ -9,7 +9,7 @@ use tauri::{
 };
 use walkdir::WalkDir;
 
-use self::metadata::{get_album_name, get_cover, get_metadata};
+use self::metadata::{get_album_artists, get_album_name, get_cover, get_metadata};
 
 pub mod metadata;
 pub mod uri;
@@ -30,6 +30,7 @@ struct Album {
 	cover: String
 }
 
+// TODO Make this a async function
 #[tauri::command]
 fn get_files() -> Vec<Album> {
 	let mut albums: HashMap<String, Album> = HashMap::new();
@@ -45,7 +46,7 @@ fn get_files() -> Vec<Album> {
 							.entry(album_name.clone())
 							.or_insert_with(|| Album {
 								title: album_name,
-								artists: None,
+								artists: get_album_artists(file.clone().into_path()),
 								songs: Vec::new(),
 								cover: get_cover(file.clone().into_path()).unwrap_or("".to_string())
 							});
@@ -62,13 +63,8 @@ fn get_files() -> Vec<Album> {
 	albums.into_values().collect()
 }
 
-#[tauri::command]
-fn base64_test(input: String) -> String {
-    URL_SAFE.encode(input)
-}
-
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("library")
-    .invoke_handler(tauri::generate_handler![get_files, base64_test])
+    .invoke_handler(tauri::generate_handler![get_files])
     .build()
 }

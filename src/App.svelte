@@ -44,6 +44,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	row-gap: 25px;
   }
 
 </style>
