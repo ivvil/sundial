@@ -1,6 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 pub mod library;
+pub mod files;
+pub mod utils;
 
 use std::fs::File;
 use std::io::BufReader;

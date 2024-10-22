@@ -14,10 +14,10 @@ let
 in
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    pkg-config
+    pkg-configUpstream
     cargo-tauri
     dbus
-    openssl_3
+    openssl
     glib
     gtk3
     libsoup

@@ -1,6 +1,6 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, path::{Path, PathBuf}};
 
-use base64::{engine::general_purpose::URL_SAFE, Engine};
+use audiotags::{AnyTag, Tag};
 use directories::UserDirs;
 use serde::Serialize;
 use tauri::{
@@ -61,6 +61,18 @@ fn get_files() -> Vec<Album> {
 		}
 	};	
 	albums.into_values().collect()
+}
+
+pub fn get_tags(paths: Vec<PathBuf>) -> HashMap<PathBuf, AnyTag> {
+    let mut map = HashMap::new();
+
+    for path in paths {
+        if let Ok(tag) = Tag::new().read_from_path(&path) {
+            map.insert(path, tag.to_anytag());
+        }
+    }
+
+    map
 }
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
